@@ -59,19 +59,20 @@ checkCashRegister = (price, cash, cid) => {
  
   // divisible by hundred's bill
   if (cashRemainder / 100 > 0) {
-    let hundredDollar = parseInt(cashRemainder / 100);
-    let avaliableCash = cidObj['ONE HUNDRED'] / 100;
-    if (avaliableCash < hundredDollar) { // hun bill fits in, but not enough bills in register to give full amount ie. 300 % 3 One Hundred bills gives 3 One Hundred bills, but only 2 One Hundred bills avaliable, so simply give 2 One hundred bills, because its as close as we can get to close the negative balance
-      hundredDollar = avaliableCash;
+    let hundredDollar = parseInt(cashRemainder / 100); // get number of one hundred bills that divide into the remaining cash (cashRemainder)
+    let avaliableCash = cidObj['ONE HUNDRED'] / 100; // get the number of one hundred bills available to use base on # of one hundred bills in cid param
+    if (avaliableCash < hundredDollar) { // the one hundred bill fits in, but not enough bills in register to give full amount ie. 300 % 3 One Hundred bills gives 3 One Hundred bills, but only 2 One Hundred bills avaliable, so simply give 2 One hundred bills, because its as close as we can get to close the negative balance
+      hundredDollar = avaliableCash; // there are less one hundred bills in cid than can divide into cashRemainder
     }
-    let hundredRecord = ['ONE HUNDRED', hundredDollar * 100];
-    (hundredRecord)
-    if (hundredRecord[1] !== 0) {
+    let hundredRecord = ['ONE HUNDRED', hundredDollar * 100]; // record the # of one hundred bills that can fit and are available to reduce the balance of cashRemainder
+    if (hundredRecord[1] !== 0) { // only record bills with at least 1 bill; ignore bills with 0 qty
       cashReturn.push(hundredRecord)
     }
+    // decr the cashRemainder value by # of one hundred bills times the value of the one hundred bills
     cashRemainder = parseFloat((cashRemainder - (100 * hundredDollar)).toFixed(2));; // b/c in this if statement, assume at least 1 One hundred bill was added to the cashReturn arr
   }
-
+  
+  // compare rest to one hundred bill documentation
   // divisible by twenty's bill
   if (cashRemainder / 20 > 0) {
     let twentDollar = parseInt(cashRemainder / 20);
