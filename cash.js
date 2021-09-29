@@ -10,7 +10,7 @@ var currencyGlobal = {
   'ONE HUNDRED': 100
 }
 
-function checkCashRegister(price, cash, cid) {
+checkCashRegister = (price, cash, cid) => {
   let cashDiff = cash - price;
   let cashReturn = [];
   let cashRemainder = cashDiff; // incr down as change is made
