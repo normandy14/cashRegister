@@ -13,14 +13,14 @@ var currencyGlobal = {
 // declare both as global var
 
 let totalCashCid = 0;
-let cidObj = {}
+let cidObj = {} // a mutable copy of cid; we will not manipulate cid param after vals are copied
 
 tallyCid = (cid) => {
   for (let c of cid) {
     console.log("c[0]: " + c[0]);
     console.log("c[1]: " + c[1]);
-    totalCashCid += c[1];
-    cidObj[c[0]] = c[1]
+    totalCashCid += c[1]; // add up all bills and coins in the cid and store in a global var
+    cidObj[c[0]] = c[1]; // copy cid to cidObj
   }
 }
 
