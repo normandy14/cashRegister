@@ -1,3 +1,5 @@
+// global var for hardcoded values of bills and currency
+
 var currencyGlobal = {
   'PENNY': .01,
   'NICKEL': .05,
@@ -12,11 +14,11 @@ var currencyGlobal = {
 
 // declare both as global var
 
-let totalCashCid = 0;
+let totalCashCid = 0; // sum of all cash in the cid parameter
 let cidObj = {} // a mutable copy of cid; we will not manipulate cid param after vals are copied
 
 tallyCid = (cid) => {
-  for (let c of cid) {
+  for (let c of cid) { // for each type of cash
     totalCashCid += c[1]; // add up all bills and coins in the cid and store in a global var
     cidObj[c[0]] = c[1]; // copy cid to cidObj
   }
@@ -42,20 +44,18 @@ checkCashRegister = (price, cash, cid) => {
   let cashReturn = []; // this arr to be returned after operations
   const cashDiff = cash - price; // the amount of change due
   
-  let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var
+  let cashRemainder = cashDiff; // we will manipulate this mutable var; we leave cashDiff as an immutable var
   
   tallyCid(cid); // updates totalCashCid and cidObj
   
-  totalCashCid = parseFloat((totalCashCid).toFixed(2));
+  totalCashCid = parseFloat((totalCashCid).toFixed(2)); // currency has 2 decimal places
   
-  if (checkExactChange(cashRemainder) === true) {
+  if (checkExactChange(cashRemainder) === true) {  // see function documentation
     return {'status' : 'CLOSED', 'change' :  cid}
   }
-  else if (checkInsufficentFunds1(cashRemainder) === true) {
+  else if (checkInsufficentFunds1(cashRemainder) === true) { // see function documentation
     return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
-  (cidObj); // easier lookup of # of bills in cid
-
  
   // divisible by hundred's bill
   if (cashRemainder / 100 > 0) {
