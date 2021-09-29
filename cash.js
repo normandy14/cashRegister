@@ -1,5 +1,5 @@
 var currencyGlobal = {
-  'PENNY':	.01,
+  'PENNY': .01,
   'NICKEL': .05,
   'DIME': 0.10,
   'QUARTER':	0.25,
@@ -45,7 +45,6 @@ checkCashRegister = (price, cash, cid) => {
   let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var
   
   tallyCid(cid); // updates totalCashCid and cidObj
-  (cidObj);
   
   totalCashCid = parseFloat((totalCashCid).toFixed(2));
   
@@ -142,7 +141,6 @@ checkCashRegister = (price, cash, cid) => {
       cashReturn.push(quarterRecord)
     }
     cashRemainder = parseFloat((cashRemainder - (.25 * numQuart)).toFixed(2));
-    (cashRemainder)
     
   }
   // divisible by dime
