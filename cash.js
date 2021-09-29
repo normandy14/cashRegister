@@ -24,11 +24,23 @@ tallyCid = (cid) => {
   }
 }
 
+// checks if exact change due and amount in register (bussiness logic requires seperate status)
 checkExactChange = (cashRemainder) => {
-  if (cashRemainder === totalCashCid) {
+  console.log("cashRemainder: " + cashRemainder)
+  if (cashRemainder == totalCashCid) {
     return true;
   }
   return false
+}
+
+// checks if change due is greater than available amount in cash register
+checkInsufficentFunds1 = (cashRemainder) => {
+   console.log("cashRemainder: " + cashRemainder)
+   console.log("totalCashCid: " + totalCashCid)
+   if (cashRemainder > totalCashCid) {
+     return true;
+  }
+  return false;
 }
 
 checkCashRegister = (price, cash, cid) => {
@@ -46,9 +58,7 @@ checkCashRegister = (price, cash, cid) => {
   if (checkExactChange(cashRemainder) === true) {
     return {'status' : 'CLOSED', 'change' :  cid}
   }
-  if (cashRemainder > totalCashCid) {
-    console.log("Insufficent Amount!")
-    console.log({'status' : 'INSUFFICIENT_FUNDS', 'change' :  []})
+  else if (checkInsufficentFunds1(cashRemainder) === true) {
     return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
   console.log("cid param in new obj: ")
@@ -245,11 +255,9 @@ checkCashRegister = (price, cash, cid) => {
 }
 
 
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]))
 
-/*
-checkCashRegister(3.26, 353.50, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]])
-*'/'
+console.log(checkCashRegister(3.26, 353.50, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]]))
+
 /*
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 */
