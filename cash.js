@@ -24,17 +24,26 @@ tallyCid = (cid) => {
   }
 }
 
+checkExactChange = (cashRemainder) => {
+  if (cashRemainder === totalCashCid) {
+    return true;
+  }
+  return false
+}
+
 checkCashRegister = (price, cash, cid) => {
   let cashReturn = []; // this arr to be returned after operations
   const cashDiff = cash - price; // the amount of change due
+  
   let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var
+  
   tallyCid(cid); // updates totalCashCid and cidObj
   console.log(cidObj);
+  
   totalCashCid = parseFloat((totalCashCid).toFixed(2));
   console.log("total cash in cid: " + totalCashCid);
-  if (cashRemainder == totalCashCid) {
-    console.log("Closed!")
-    console.log({'status' : 'CLOSED', 'change' :  cid})
+  
+  if (checkExactChange(cashRemainder) === true) {
     return {'status' : 'CLOSED', 'change' :  cid}
   }
   if (cashRemainder > totalCashCid) {
@@ -235,8 +244,12 @@ checkCashRegister = (price, cash, cid) => {
   return {status: "OPEN", change: cashReturn}
 }
 
-checkCashRegister(3.26, 353.50, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]])
 
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]))
+
+/*
+checkCashRegister(3.26, 353.50, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]])
+*'/'
 /*
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 */
