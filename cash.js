@@ -28,7 +28,7 @@ checkCashRegister = (price, cash, cid) => {
   let cashReturn = []; // this arr to be returned after operations
   const cashDiff = cash - price; // the amount of change due
   let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var
-  tallyCid(cid);
+  tallyCid(cid); // updates totalCashCid and cidObj
   console.log(cidObj);
   totalCashCid = parseFloat((totalCashCid).toFixed(2));
   console.log("total cash in cid: " + totalCashCid);
