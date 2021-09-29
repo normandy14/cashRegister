@@ -199,8 +199,11 @@ checkCashRegister = (price, cash, cid) => {
   return {status: "OPEN", change: cashReturn} // exact change
 }
 
-
+let price = 17.59;
+let cash = 20
+console.log("price: " + price)
+console.log("cash: " + cash)
 console.log(
-    checkCashRegister(17.59, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+    checkCashRegister(price, cash, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
   )
   
