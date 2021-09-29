@@ -10,20 +10,26 @@ var currencyGlobal = {
   'ONE HUNDRED': 100
 }
 
-checkCashRegister = (price, cash, cid) => {
-  let cashDiff = cash - price;
-  let cashReturn = [];
-  let cashRemainder = cashDiff; // incr down as change is made
-  console.log("cashRemainder : " + cashRemainder)
-  let totalCashCid = 0;
-  let cidObj = {}
+// declare both as global var
+
+let totalCashCid = 0;
+let cidObj = {}
+
+tallyCid = (cid) => {
   for (let c of cid) {
-    console.log("first elem: " + c[0]);
-    console.log("sec elem: " + c[1]);
-    // console.log("currency Val: " + currencyGlobal[c[0]]);
+    console.log("c[0]: " + c[0]);
+    console.log("c[1]: " + c[1]);
     totalCashCid += c[1];
     cidObj[c[0]] = c[1]
   }
+}
+
+checkCashRegister = (price, cash, cid) => {
+  let cashReturn = []; // this arr to be returned after operations
+  const cashDiff = cash - price; // the amount of change due
+  let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var
+  tallyCid(cid)
+  
   totalCashCid = parseFloat((totalCashCid).toFixed(2));
   console.log("total cash in cid: " + totalCashCid);
   if (cashRemainder == totalCashCid) {
