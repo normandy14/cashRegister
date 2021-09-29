@@ -34,33 +34,12 @@ function checkCashRegister(price, cash, cid) {
   if (cashRemainder > totalCashCid) {
     console.log("Insufficent Amount!")
     console.log({'status' : 'INSUFFICIENT_FUNDS', 'change' :  []})
-    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}    
+    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
-  /*
-  else if (totalCashCid > cashRemainder && totalCashCid % cashRemainder != 0) {
-    console.log("Insufficent Amount2 !")
-    console.log(cashRemainder);
-    console.log(totalCashCid);
-    console.log({'status' : 'INSUFFICIENT_FUNDS', 'change' :  []})
-    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}   
-  }
-  */
   console.log("cid param in new obj: ")
   console.log(cidObj); // easier lookup of # of bills in cid
 
-  // surgery site
-
-  /*
-  let bills = Object.keys(cidObj);
-  console.log(cashRemainder)
-  let billVal = 0;
-  for (let bill of bills) {
-    console.log(bill);
-    billVal = currencyGlobal[bill]
-    console.log("val of bill: " + billVal)
-  }
-  */
-
+ 
   // divisible by hundred's bill
   if (cashRemainder / 100 > 0) {
     let hundredDollar = parseInt(cashRemainder / 100);
@@ -238,7 +217,7 @@ function checkCashRegister(price, cash, cid) {
   console.log(totalInCashReturn)
   if (cashDiff % totalInCashReturn !== 0 ){
     console.log("Insufficent 2!")
-    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []} 
+    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
   return {status: "OPEN", change: cashReturn}
 }
@@ -246,7 +225,7 @@ function checkCashRegister(price, cash, cid) {
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 
 /*
-checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 */
 
 /*
