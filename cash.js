@@ -1,13 +1,13 @@
 var currencyGlobal = {
-'PENNY':	.01,
-'NICKEL': .05,
-'DIME': 0.10,
-'QUARTER':	0.25,
-'ONE'	: 1.00,
-'FIVE' : 5.00,
-'TEN' : 10.00,
-'TWENTY' : 20.00,
-'ONE HUNDRED': 100
+  'PENNY':	.01,
+  'NICKEL': .05,
+  'DIME': 0.10,
+  'QUARTER':	0.25,
+  'ONE'	: 1.00,
+  'FIVE' : 5.00,
+  'TEN' : 10.00,
+  'TWENTY' : 20.00,
+  'ONE HUNDRED': 100
 }
 
 function checkCashRegister(price, cash, cid) {
