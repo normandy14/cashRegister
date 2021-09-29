@@ -15,6 +15,7 @@ var currencyGlobal = {
 let totalCashCid = 0;
 let cidObj = {} // a mutable copy of cid; we will not manipulate cid param after vals are copied
 let cashReturn = []; // this arr to be returned after operations
+let cashDiff;
 
 tallyCid = (cid) => {
   for (let c of cid) {
@@ -46,7 +47,7 @@ checkInsufficentFunds1 = (cashRemainder) => {
 
 // main function
 checkCashRegister = (price, cash, cid) => {
-  const cashDiff = cash - price; // the amount of change due
+  cashDiff = cash - price; // the amount of change due
   
   let cashRemainder = cashDiff; // we will increment this var; we leave cashDiff as an immutable var; important var
   
@@ -59,7 +60,7 @@ checkCashRegister = (price, cash, cid) => {
   if (checkExactChange(cashRemainder) === true) {
     return {'status' : 'CLOSED', 'change' :  cid}
   }
-  else if (checkInsufficentFunds1(cashRemainder) === true) {
+  if (checkInsufficentFunds1(cashRemainder) === true) {
     return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
   console.log("cid param in new obj: ")
@@ -85,32 +86,28 @@ checkCashRegister = (price, cash, cid) => {
   // * calc new cashRemainder ie. cashRemainder % 100
 
   // surgecal site
-  console.log("Final Section: ")
-  let totalInCashReturn = 0;
-  for (let cash of cashReturn) {
-    console.log("first elem: " + cash[0]);
-    console.log("second elem: " + cash[1]);
-    totalInCashReturn += cash[1];
-  }
 
-  console.log("cashReturn: ");
-  console.log(cashReturn);
-  console.log("cashDiff: ");
-  console.log(cashDiff);
-  console.log("totalInCashReturn: ");
-  totalInCashReturn = parseFloat((totalInCashReturn).toFixed(2));
-  console.log(totalInCashReturn)
-  if (cashDiff % totalInCashReturn !== 0 ){
-    console.log("Insufficent 2!")
+  if (checkInsufficentFunds2() === true) {
+    console.log("Insufficent 2!");
     return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
   }
-  return {status: "OPEN", change: cashReturn}
+  
+  return {status: "OPEN", change: cashReturn } // exact change
 }
 
 
+checkInsufficentFunds2 = () => {
+  let totalInCashReturn = 0;
+  for (let cash of cashReturn) {
+    totalInCashReturn += cash[1];
+  }
+  if (cashDiff % totalInCashReturn !== 0 ) {
+      return true;
+    }
+  return false;
+}
 
-console.log(checkCashRegister(3.26, 353.52, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]]))
-
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.04], ["NICKEL", .1], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 /*
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 */
