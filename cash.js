@@ -49,19 +49,20 @@ checkCashRegister = (price, cash, cid) => {
   // divisible by hundred's bill
   if (cashRemainder / 100 > 0) {
     let hundredDollar = parseInt(cashRemainder / 100);
-    console.log(hundredDollar)
+    console.log("hundredDollar: " + hundredDollar)
     let avaliableCash = cidObj['ONE HUNDRED'] / 100;
-    console.log(avaliableCash);
-    if (avaliableCash < hundredDollar) {
+    console.log("avaliable cash: " + avaliableCash);
+    if (avaliableCash < hundredDollar) { // hun bill fits in, but not enough bills in register to give full amount ie. 300 % 3 One Hundred bills gives 3 One Hundred bills, but only 2 One Hundred bills avaliable, so simply give 2 One hundred bills, because its as close as we can get to close the negative balance
       hundredDollar = avaliableCash;
     }
-    console.log(hundredDollar);
+    console.log("hundredDollar: ");
     let hundredRecord = ['ONE HUNDRED', hundredDollar * 100];
     console.log(hundredRecord)
     if (hundredRecord[1] !== 0) {
       cashReturn.push(hundredRecord)
     }
-    cashRemainder = cashRemainder % 100;
+    cashRemainder = parseFloat((cashRemainder - (100 * hundredDollar)).toFixed(2));; // b/c in this if statement, assume at least 1 One hundred bill was added to the cashReturn arr
+    console.log("cash remainder: " + cashRemainder)
   }
 
   // divisible by twenty's bill
@@ -234,7 +235,7 @@ checkCashRegister = (price, cash, cid) => {
   return {status: "OPEN", change: cashReturn}
 }
 
-checkCashRegister(3.26, 353.26, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 200]])
+checkCashRegister(3.26, 353.50, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 200], ["ONE HUNDRED", 200]])
 
 /*
 checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
