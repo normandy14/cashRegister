@@ -186,18 +186,17 @@ checkCashRegister = (price, cash, cid) => {
   }
   // * calc new cashRemainder ie. cashRemainder % 100
 
-  // surgecal site
+  // create var to record the exact cash amount of all currency we appended to the cashReturn arr of arr var
   let totalInCashReturn = 0;
   for (let cash of cashReturn) {
-    totalInCashReturn += cash[1];
+    totalInCashReturn += cash[1]; // incr by the cash amount for each bill/coin
   }
 
-  totalInCashReturn = parseFloat((totalInCashReturn).toFixed(2));
-  if (cashDiff % totalInCashReturn !== 0 ){
-    ("Insufficent 2!")
-    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []}
+  totalInCashReturn = parseFloat((totalInCashReturn).toFixed(2)); // format, currency has 2 decimal places
+  if (cashDiff % totalInCashReturn !== 0 ){ // check for exact change
+    return {'status' : 'INSUFFICIENT_FUNDS', 'change' :  []} // not exact change
   }
-  return {status: "OPEN", change: cashReturn}
+  return {status: "OPEN", change: cashReturn} // exact change
 }
 
 
